@@ -6,10 +6,35 @@ const loadPhone = async(inputvalues) => {
 
 }
 
+
+
 const displayData = phones =>{
     const phoneConsterner = document.getElementById('phone-constainer');
     phoneConsterner.textContent = "";
-    phones  = phones.slice(0 ,21);
+
+    const showAll = document.getElementById('show-all');
+
+    if(phones.length > 10){
+
+        phones  = phones.slice(0 ,11);
+
+        showAll.classList.remove('d-none')
+
+    }
+
+    else{
+        showAll.classList.add('d-none')
+    }
+
+
+    const noPhone = document.getElementById('nophone-found-masseges');
+
+    if(phones.length === 0){
+        noPhone.classList.remove('d-none');
+    }
+    else{
+        noPhone.classList.add('d-none')
+    }
     phones.forEach( phone =>{
         const phoneDiv = document.createElement('div');
         phoneDiv.classList.add('col');
@@ -25,13 +50,37 @@ const displayData = phones =>{
         phoneConsterner.appendChild(phoneDiv)
 
     })
+    toggleSpenner(false)
 }
 
 document.getElementById('search-button').addEventListener('click', function(){
-  const inputVale =   document.getElementById('input-value');
+    tooggles(11);
+    
+})
+
+
+const tooggles = dataLimits => {
+    toggleSpenner(true);
+  
+    const inputVale =   document.getElementById('input-value');
   const inputvalues = inputVale.value;
   loadPhone(inputvalues)
   inputVale.value = "";
+}
+
+
+const toggleSpenner = isLoading => {
+    const lodingData = document.getElementById('loder');
+
+    if(isLoading){
+        lodingData.classList.remove('d-none')
+    }
+    else{
+        lodingData.classList.add('d-none')
+    }
+}
+
+document.getElementById('show-all').addEventListener('click', function(dataLimits){
+    tooggles();
 })
 
-loadPhone(inputvalues)
